@@ -1,0 +1,63 @@
+Tema: Client WEB. Comunicare cu server REST API.
+Student: Birtia Andrei-Mirel
+Grupa: 323CB
+
+Am avut de implementat un client web care sa comunice cu un server REST API.
+Acesta dispune de mai multe endpoint-uri, fiecare cu un rol bine definit.
+Endpointurile sunt: login, register, logout, add_book, delete_book, get_book, get_books.
+Am comunicat cu fiecare in functie de comenzile introduse de utilizator.
+Acesta poate sa adauge, sa vizualizeze, sa stearga carti, sa se inregistreze, sa se logheze si sa se delogheze.
+
+Comanda register:
+- utilizatorul introduce username si parola
+- se trimite un request de tip POST catre server cu datele introduse
+- datele sunt trimite sub forma de JSON
+- serverul verifica daca datele sunt corecte si intoarce un mesaj de succes sau de eroare
+
+Comanda login:
+- utilizatorul introduce username si parola
+- se trimite un request de tip POST catre server cu datele introduse
+- datele sunt trimite sub forma de JSON
+- serverul verifica daca datele sunt corecte si intoarce un cookie de sesiune
+- clientul salveaza cookie-ul si il foloseste la fiecare request ulterior
+
+Comanda logout:
+- se trimite un request de tip GET catre server
+- request-ul contine cookie-ul de sesiune
+- serverul verifica daca cookie-ul este valid si il sterge
+- clientul sterge cookie-ul
+
+Comanda enter_library:
+- se trimite un request de tip GET catre server
+- request-ul contine cookie-ul de sesiune
+- serverul verifica daca cookie-ul este valid si intoarce un mesaj de succes
+- de asemena, se trimite un token JWT care va fi folosit la request-urile ulterioare
+- clientul salveaza token-ul 
+
+Comanda add_book:
+- utilizatorul introduce datele cartii
+- se trimite un request de tip POST catre server cu datele introduse
+- request-ul contine atat obiectul JSON cu datele cartii, cat si token-ul JWT
+si cookie-ul de sesiune
+- serverul verifica daca token-ul si cookie-ul sunt valide si adauga cartea in lista
+- serverul intoarce un mesaj de succes sau de eroare
+
+Comanda delete_book:
+- utilizatorul introduce id-ul cartii
+- se trimite un request de tip DELETE catre server cu id-ul cartii
+- request-ul contine atat id-ul cartii, cat si token-ul JWT si cookie-ul de sesiune
+- serverul verifica daca token-ul si cookie-ul sunt valide, verifica daca cartea exista si o sterge
+- serverul intoarce un mesaj de succes sau de eroare
+
+Comanda get_books:
+- se trimite un request de tip GET catre server
+- request-ul contine token-ul JWT si cookie-ul de sesiune
+- serverul verifica daca token-ul si cookie-ul sunt valide si intoarce lista de carti
+- clientul afiseaza lista de carti
+
+Comanda get_book:
+- utilizatorul introduce id-ul cartii
+- se trimite un request de tip GET catre server cu id-ul cartii
+- request-ul contine atat id-ul cartii, cat si token-ul JWT si cookie-ul de sesiune
+- serverul verifica daca token-ul si cookie-ul sunt valide, verifica daca cartea exista si o intoarce
+- clientul afiseaza cartea sau un mesaj de eroare
